@@ -1,6 +1,6 @@
 module StippleMarkdown
 
-using Stipple, StippleUI, StippleUI.API
+using Stipple
 
 export markdowntext, markdowncard
 
