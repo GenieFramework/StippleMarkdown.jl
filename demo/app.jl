@@ -7,6 +7,6 @@ using StippleMarkdown
 end
 @deps StippleMarkdown
 
-ui() = [ markdowntext(:txt), markdowntext("## Hello World!"), markdowncard(:txt), markdowncard("## Hello World!\n This is a Markdown card")]
+ui() = [ markdowntext("## Hello World!"), markdowntext(:txt), markdowncard("## Hello World!\n This is a Markdown card"), br(), markdowncard(:txt)]
 
 @page("/", ui)
