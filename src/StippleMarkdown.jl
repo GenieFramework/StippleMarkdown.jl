@@ -1,6 +1,6 @@
 module StippleMarkdown
 
-using Stipple
+using Stipple, StippleUI.API
 
 export markdowntext, markdowncard
 
@@ -15,19 +15,19 @@ register_normal_element("markdown__text", context = @__MODULE__)
 register_normal_element("markdown__card", context = @__MODULE__)
 
 function markdowntext(text::Symbol)
-    markdown__text(;(var":text"=text))
+    markdown__text(;kw([:text=>text])...)
 end
 
 function markdowntext(text::String)
     markdown__text(text)
 end
 
-function markdowncard(text::Symbol)
-    markdown__card(;(var":text"=text))
+function markdowncard(text::Symbol, title::Union{Symbol,String}="")
+    markdown__card(;kw([:text=>text, :title=>title])...)
 end
 
-function markdowncard(text::String)
-    markdown__card(text)
+function markdowncard(text::String, title::Union{Symbol,String}="")
+    markdown__card(text;kw([:title=>title])...)
 end
 
 function __init__()

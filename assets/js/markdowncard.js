@@ -1,7 +1,8 @@
 Vue.component("markdown-card", {
     template: `
         <q-card >
-            <div style="padding:15px;padding-right:30px">
+            <div style="padding:15px;padding-right:30px; padding-top:5px">
+            <h6>{{ title }}</h6>
                 <!-- Display slot content if available, otherwise display prop content -->
                 <md-block :key="contentKey">
                     <slot v-if="hasSlotContent">{{ text }}</slot>
@@ -15,6 +16,10 @@ Vue.component("markdown-card", {
     `,
     props: {
         text: {
+            type: String,
+            default: ''
+        },
+        title: {
             type: String,
             default: ''
         }
