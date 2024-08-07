@@ -1,0 +1,57 @@
+[
+{
+    "label": "Markdown card",
+    "tagName": "MARKDOWN-CARD",
+    "type": "markdowncard", 
+    "icon": "{appPath}/components/markdowntext/assets/library_icon.png",
+    "category": "Other",
+    "content": "<markdown-card gb_c__title=\"Card title\" gb_c__text=\" \">__Markdown__ **text**</markdown-card>",
+    "description": "",
+
+    "enabled": true,
+    "hideFromLibrary": false,
+
+    "draggable": true,
+    "editable": false,
+    "droppable": false,
+    "properties": [
+        {
+            "label": "Text",
+            "name": "text",
+            "enabled": true,
+            "type": ["String"]
+        },
+        {
+            "label": "Title",
+            "name": "title",
+            "enabled": true,
+            "type": ["String"]
+        }
+    ]    
+
+},
+{
+    "label": "Markdown",
+    "tagName": "MARKDOWN-TEXT",
+    "type": "markdowntext", 
+    "icon": "{appPath}/components/markdowntext/assets/library_icon.png",
+    "category": "Text",
+    "content": "<markdown-text>## md text __Markdown__ **text**</markdown-text>",
+    "description": "",
+
+    "enabled": true,
+    "hideFromLibrary": false,
+
+    "draggable": true,
+    "editable": false,
+    "droppable": false,
+    "properties": [
+        {
+            "label": "Text",
+            "name": "text",
+            "enabled": true,
+            "type": ["String"]
+        }
+    ]    
+
+}]

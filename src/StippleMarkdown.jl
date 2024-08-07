@@ -48,6 +48,18 @@ function deps_routes()
             :javascript) |> Genie.Renderer.respond
     end
 
+    Genie.Router.route(Genie.Assets.asset_route(assets_config, :json, file="definitions"), named=:get_definitionsjson) do
+        Genie.Renderer.WebRenderable(
+            Genie.Assets.embedded(Genie.Assets.asset_file(cwd=normpath(joinpath(@__DIR__, "..")), file="definitions.json")),
+            :json) |> Genie.Renderer.respond
+    end
+
+    Genie.Router.route(Genie.Assets.asset_route(assets_config, :css, file="canvas"), named=:get_canvascss) do
+        Genie.Renderer.WebRenderable(
+            Genie.Assets.embedded(Genie.Assets.asset_file(cwd=normpath(joinpath(@__DIR__, "..")), file="canvas.css")),
+            :css) |> Genie.Renderer.respond
+    end
+
     nothing
 end
 
