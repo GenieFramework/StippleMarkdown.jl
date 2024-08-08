@@ -27,7 +27,98 @@ function markdowncard(text::String, title::Union{Symbol,String}="")
     markdown__card(text; kw([:title => title])...)
 end
 
+function gb_component_routes()
+    package_subpath_part = "stipplemarkdown" # change these, keep the other parts as defined below
+
+    # don't change these
+    # GenieDevTools identifies the components by their asset path, which must be of the form /components/stipplemarkdown/gb_component/
+    prefix = "components"
+    gb_component_path = "gb_component"
+    assets_folder_path = "$package_subpath_part/$gb_component_path"
+    icons_folder_path = "icons"
+
+    [
+    Genie.Router.route(Genie.Assets.asset_route(
+        assets_config,
+        "", # type
+        file="definitions.json",
+        path=assets_folder_path,
+        prefix=prefix,
+        ext=""
+    ),
+    named=:get_gb_component_stipplemarkdown_definitionsjson) do
+        Genie.Renderer.WebRenderable(
+            Genie.Assets.embedded(
+                Genie.Assets.asset_file(cwd=normpath(joinpath(@__DIR__, "..")),
+                file="definitions.json",
+                path=gb_component_path,
+                type="")
+            ),
+            :json) |> Genie.Renderer.respond
+    end
+
+    Genie.Router.route(Genie.Assets.asset_route(
+        assets_config,
+        "", # type
+        file="canvas.css",
+        path=assets_folder_path,
+        prefix=prefix,
+        ext=""
+    ),
+    named=:get_gb_component_stipplemarkdown_canvascss) do
+        Genie.Renderer.WebRenderable(
+            Genie.Assets.embedded(
+                Genie.Assets.asset_file(cwd=normpath(joinpath(@__DIR__, "..")),
+                file="canvas.css",
+                path=gb_component_path,
+                type="")
+            ),
+            :css) |> Genie.Renderer.respond
+    end
+
+    Genie.Router.route(Genie.Assets.asset_route(
+        assets_config,
+        "", # type
+        file="markdowncard.png",
+        path="$assets_folder_path/$icons_folder_path",
+        prefix=prefix,
+        ext=""
+    ),
+    named=:get_gb_component_stipplemarkdown_icons_markdowncardpng) do
+        Genie.Renderer.WebRenderable(
+            Genie.Assets.embedded(
+                Genie.Assets.asset_file(cwd=normpath(joinpath(@__DIR__, "..")),
+                file="markdowncard.png",
+                path=joinpath(gb_component_path, icons_folder_path),
+                type="")
+            ),
+            :png) |> Genie.Renderer.respond
+    end
+
+    Genie.Router.route(Genie.Assets.asset_route(
+        assets_config,
+        "", # type
+        file="markdowntext.png",
+        path="$(assets_folder_path)/$icons_folder_path",
+        prefix=prefix,
+        ext=""
+    ),
+    named=:get_gb_component_stipplemarkdown_icons_markdowntextpng) do
+        Genie.Renderer.WebRenderable(
+            Genie.Assets.embedded(
+                Genie.Assets.asset_file(cwd=normpath(joinpath(@__DIR__, "..")),
+                file="markdowntext.png",
+                path=joinpath(gb_component_path, icons_folder_path),
+                type="")
+            ),
+            :png) |> Genie.Renderer.respond
+    end
+    ]
+end
+
 function deps_routes()
+    haskey(ENV, "GB_JULIA_PATH") && gb_component_routes()
+
     Genie.Assets.external_assets(Stipple.assets_config) && return nothing
 
     Genie.Router.route(Genie.Assets.asset_route(assets_config, :js, file="markdowntext"), named=:get_markdowntextjs) do
@@ -46,18 +137,6 @@ function deps_routes()
         Genie.Renderer.WebRenderable(
             Genie.Assets.embedded(Genie.Assets.asset_file(cwd=normpath(joinpath(@__DIR__, "..")), file="mdblock.umd.js")),
             :javascript) |> Genie.Renderer.respond
-    end
-
-    Genie.Router.route(Genie.Assets.asset_route(assets_config, :json, file="definitions"), named=:get_definitionsjson) do
-        Genie.Renderer.WebRenderable(
-            Genie.Assets.embedded(Genie.Assets.asset_file(cwd=normpath(joinpath(@__DIR__, "..")), file="definitions.json")),
-            :json) |> Genie.Renderer.respond
-    end
-
-    Genie.Router.route(Genie.Assets.asset_route(assets_config, :css, file="canvas"), named=:get_canvascss) do
-        Genie.Renderer.WebRenderable(
-            Genie.Assets.embedded(Genie.Assets.asset_file(cwd=normpath(joinpath(@__DIR__, "..")), file="canvas.css")),
-            :css) |> Genie.Renderer.respond
     end
 
     nothing
